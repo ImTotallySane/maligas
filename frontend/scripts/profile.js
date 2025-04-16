@@ -1,12 +1,14 @@
+// Define the base URL (adjust according to your environment)
+const baseURL = "http://localhost:8000"; // Adjust this as needed
 
 async function loadUsers() {
-  const res = await fetch(`/users`);
+  const res = await fetch(`${baseURL}/users`);
   const users = await res.json();
   const list = document.getElementById("userList");
   list.innerHTML = "";
-  
+
   document.getElementById("userCount").textContent = `Total users: ${users.length}`;
-  // why did I give such a weird task
+
   users.forEach(user => {
     const li = document.createElement("li");
     li.textContent = `${user.username}: ${user.bio}`;
@@ -14,8 +16,9 @@ async function loadUsers() {
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Delete";
     deleteBtn.onclick = async () => {
+      // Correct method for deletion
       await fetch(`${baseURL}/users/${user._id}`, { method: "DELETE" });
-      loadUsers();
+      loadUsers();  // Reload the users after deletion
     };
 
     li.appendChild(deleteBtn);
@@ -40,8 +43,8 @@ document.getElementById("search").addEventListener("input", async (e) => {
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Delete";
     deleteBtn.onclick = async () => {
-      await fetch(`/users/${user._id}`, { method: "PATCH" });
-      loadUsers();
+      await fetch(`${baseURL}/users/${user._id}`, { method: "DELETE" }); // Corrected delete request
+      loadUsers();  // Reload after delete
     };
 
     li.appendChild(deleteBtn);
@@ -51,15 +54,16 @@ document.getElementById("search").addEventListener("input", async (e) => {
 
 loadUsers();
 
+// Handle user form submission
 document.getElementById("userForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const username = document.getElementById("username").value;
   const bio = document.getElementById("bio").value;
-  await fetch(`/users`, {
+  await fetch(`${baseURL}/users`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ username, bio })
   });
   e.target.reset();
-  loadUsers();
+  loadUsers();  // Reload users after adding
 });
