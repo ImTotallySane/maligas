@@ -64,5 +64,16 @@ async function loadNews(searchTerm = "", source = "all", reset = false) {
   }
 }
 
-
 loadNews();
+
+document.getElementById("searchBtn").addEventListener("click", () => {
+  const term = document.getElementById("search").value;
+  const source = document.getElementById("source").value;
+  loadNews(term, source, true);
+});
+
+document.getElementById("reset").addEventListener("click", () => {
+  document.getElementById("search").value = "";
+  document.getElementById("source").value = "all";
+  loadNews("", "all", true);
+});
