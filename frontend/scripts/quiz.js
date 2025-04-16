@@ -36,14 +36,15 @@ function updateAttempts() {
 }
 
 searchInput.addEventListener("input", updateAttempts);
-// how is life ?
+
 async function loadHighScore() {
   try {
     const res = await fetch(`${BASE_URL}/quiz/highscore`);
     const data = await res.json();
     highScore = data.high_score;
     updateScoreDisplay();
-  } catch {
+  } catch (error) {
+    console.error("Error loading high score:", error);
     feedback.textContent = "Failed to load high score.";
   }
 }
@@ -67,7 +68,8 @@ async function loadQuestion() {
 
     form.dataset.id = data.id;
     feedback.textContent = "";
-  } catch {
+  } catch (error) {
+    console.error("Error loading question:", error);
     feedback.textContent = "Failed to load question.";
   }
 }
@@ -116,7 +118,8 @@ form.addEventListener("submit", async (e) => {
       form.innerHTML = "";
       resetBtn.classList.remove("hidden");
     }
-  } catch {
+  } catch (error) {
+    console.error("Error submitting answer:", error);
     feedback.textContent = "Error submitting answer.";
   }
 });

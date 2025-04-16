@@ -1,5 +1,6 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Body
 import random
+from typing import Dict, Any
 
 router = APIRouter(tags=["quiz"])
 
@@ -37,19 +38,33 @@ questions = [
     }
 ]
 
-game_state = {"high_score": 0}
+game_state = {
+    "high_score": 0,
+    "answered_questions": set()  # Track answered questions
+}
+
 # god would hate me for not dockerizing this repo
 @router.get("/question")
 async def get_question():
-    question = questions[1]
+    # Filter out already answered questions
+    available_questions = [q for q in questions if q["id"] not in game_state["answered_questions"]]
+    
+    # If all questions are answered, reset the tracking
+    if not available_questions:
+        game_state["answered_questions"] = set()
+        available_questions = questions
+    
+    # Select a random question from available questions
+    question = random.choice(available_questions)
+    
     return {
         "id": question["id"],
         "text": question["text"],
         "options": question["options"]
     }
 
-@router.get("/answer")
-async def submit_answer(data: dict):
+@router.post("/answer")
+async def submit_answer(data: Dict[str, Any] = Body(...)):
     question_id = data.get("id")
     answer = data.get("answer")
     score = data.get("score", 0)
@@ -58,6 +73,9 @@ async def submit_answer(data: dict):
     if not question:
         return {"error": "Invalid question ID"}
 
+    # Add the question to answered questions
+    game_state["answered_questions"].add(question_id)
+    
     is_correct = answer == question["correct"]
     if is_correct:
         score += 10
