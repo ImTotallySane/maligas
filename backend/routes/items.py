@@ -39,7 +39,7 @@ async def delete_item(item_id: str, item_details:str):
 '''
 
 from fastapi import APIRouter, HTTPException
-from models import Item
+from ..models import Item
 from bson import ObjectId
 
 router = APIRouter()
