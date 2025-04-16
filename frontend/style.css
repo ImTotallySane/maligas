@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> ff12fe6690f353fa2e32dd398f8e89d59b74147e
 /* General Styles */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -139,8 +135,6 @@ li {
         padding: 1rem;
     }
 }
-<<<<<<< HEAD
-=======
 
 /* Additional styles for items page */
 #itemList li {
@@ -220,4 +214,3 @@ body.dark-mode #stats p {
 body.dark-mode #question {
     background-color: #2d2d2d;
 }
->>>>>>> ff12fe6690f353fa2e32dd398f8e89d59b74147e
