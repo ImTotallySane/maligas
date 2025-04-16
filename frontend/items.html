@@ -12,8 +12,41 @@
     <a href="profile.html">Profile</a>
     <a href="analytics.html">Analytics</a>
     <a href="news.html">News</a>
+    <a href="quiz.html">Quiz</a>
   </nav>
-  <!-- fuck I think I deleted a container, god help me-->
+
+  <div class="container">
+    <h1>Items</h1>
+
+    <input
+      type="text"
+      id="search"
+      placeholder="Search items..."
+      autocomplete="off"
+    >
+
+    <div id="itemCount">Total items: 0</div>
+
+    <ul id="itemList"></ul>
+
+    <!-- Add Item Form -->
+     <br>
+    <form id="itemForm" autocomplete="off">
+      <h2>Add New Item</h2>
+      <label>
+        Name:
+        <input type="text" id="name" required />
+      </label>
+      <br />
+      <label>
+        Description:
+        <input type="text" id="description" required />
+      </label>
+      <br />
+      <button type="submit">Add Item</button>
+    </form>
+  </div>
+
 
   <script src="scripts/items.js"></script>
 </body>
