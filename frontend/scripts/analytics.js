@@ -1,4 +1,4 @@
-const baseURL = "http://localhost:8001";
+const baseURL = "http://localhost:8000";
 
 async function loadAnalytics() {
   const res = await fetch(`${baseURL}/analytics`);
@@ -12,7 +12,6 @@ async function loadAnalytics() {
   document.getElementById("maxUserName").textContent = data.stats.max_user_username_length;
   
   // Do I play too much cricket... hmmm...
-  document.getElementById("plot").src = data.plot;
-}
+  document.getElementById("plot").src = `data:image/png;base64,${data.histogram_image_base64}`;}
 
 loadAnalytics();

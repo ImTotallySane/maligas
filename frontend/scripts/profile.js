@@ -1,4 +1,3 @@
-// Define the base URL (adjust according to your environment)
 const baseURL = "http://localhost:8000"; // Adjust this as needed
 
 async function loadUsers() {

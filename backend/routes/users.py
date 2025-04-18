@@ -6,7 +6,7 @@ router = APIRouter()
 
 # Helper function to get the users collection
 async def get_users_collection():
-    from db import init_db
+    from ..db import init_db
     return init_db()["users_collection"]
 
 # Get all users
